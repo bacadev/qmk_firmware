@@ -1,1 +1,9 @@
-LTO_ENABLE	= yes
+LTO_ENABLE			= yes
+CONSOLE_ENABLE		= no
+COMMAND_ENABLE		= no
+GRAVE_ESC_ENABLE	= no
+MAGIC_ENABLE		= no
+EXTRAKEY_ENABLE		= no
+MOUSEKEY_ENABLE		= no
+VIA_ENABLE			= no
+DEBOUNCE_TYPE		= asym_eager_defer_pk

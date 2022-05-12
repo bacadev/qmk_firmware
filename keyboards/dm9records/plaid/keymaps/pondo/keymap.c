@@ -4,7 +4,10 @@ enum plaid_layers {
     _QWERTY,
     _LOWER,
     _RAISE,
-    _ADJUST
+    _ADJUST,
+    _NAV,
+    _SYMBOLS,
+    _MOD,
 };
 
 enum plaid_keycodes {
@@ -21,6 +24,13 @@ enum plaid_keycodes {
     LED_0
 };
 
+enum custom_keycodes {
+    KC_NAV  = LT(_NAV, KC_Z),           // nav layer on hold, z on tap
+    KC_SYMB = LT(_SYMBOLS, KC_SLSH),    // symbol layer on hold, / on tap
+    KC_ECTL = LCTL_T(KC_ESC),           // ctrl on hold, esc on tap
+    KC_MODL = MO(_MOD),                 // hold to activate _MOD layer
+};
+
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
@@ -35,7 +45,11 @@ const uint16_t modifiers[] = {
     KC_LGUI,
     KC_RGUI,
     LOWER,
-    RAISE
+    RAISE,
+    KC_NAV,
+    KC_SYMB,
+    KC_ECTL,
+    KC_MODL,
 };
 
 //Setup consts for LED modes
@@ -56,14 +70,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | RAlt | Alt  | GUI  |Lower |Space | Bspc |Raise | Left | Down |  Up  |Right |
+ * | Ctrl | ModL | GUI  | Alt  |Lower |Space | Bspc |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_plaid_grid(
     KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_DEL ,
-    KC_ESC , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_ENT ,
-    KC_LCTL, KC_RALT, KC_LALT, KC_LGUI, LOWER  , KC_SPC , KC_BSPC, RAISE  , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT
+    KC_ECTL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
+    KC_LSFT, KC_NAV , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SYMB, KC_ENT ,
+    KC_LCTL, KC_MODL, KC_LGUI, KC_LALT, LOWER  , KC_SPC , KC_BSPC, RAISE  , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT
 ),
 
 /* Lower
@@ -74,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | RAlt | Alt  | GUI  |Lower |Space | Bspc |Raise | Left | Down |  Up  |Right |
+ * | Ctrl | ModL | GUI  | Alt  |Lower |Space | Bspc |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_plaid_grid(
@@ -92,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | RAlt | Alt  | GUI  |Lower |Space | Bspc |Raise | Left | Down |  Up  |Right |
+ * | Ctrl | ModL | GUI  | Alt  |Lower |Space | Bspc |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_plaid_grid(
@@ -104,21 +118,75 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |Reset |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Del  |
+ * |Reset |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |MacMod|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_ADJUST] = LAYOUT_plaid_grid(
+    RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+),
+
+/* Nav
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | RAlt | Alt  | GUI  |Lower |Space | Bspc |Raise | Left | Down |  Up  |Right |
+ * | Ctrl | ModL | GUI  | Alt  |Lower |Space | Bspc |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = LAYOUT_plaid_grid(
-    RESET  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+[_NAV] = LAYOUT_plaid_grid(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-)
+),
+
+/* Symbols
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Del  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | ModL | GUI  | Alt  |Lower |Space | Bspc |Raise | Left | Down |  Up  |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_SYMBOLS] = LAYOUT_plaid_grid(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
+/* Mods
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |PrnScr|      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_MOD] = LAYOUT_plaid_grid(
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+),
 
 };
 
@@ -207,12 +275,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-
         case LED_1:
             if (record->event.pressed) {
                     if (led_config.red_mode == LEDMODE_ON) {
