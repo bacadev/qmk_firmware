@@ -12,4 +12,4 @@ EXTRAKEY_ENABLE		= yes
 MOUSEKEY_ENABLE		= yes
 WPM_ENABLE			= yes
 VIA_ENABLE			= no
-DEBOUNCE_TYPE		= sym_defer_pk
+DEBOUNCE_TYPE		= sym_eager_pk

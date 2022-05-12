@@ -13,6 +13,7 @@ enum custom_keycodes {
     // keys
     KC_NAV  = LT(_NAV, KC_Z),
     KC_SYMB = LT(_SYMBOLS, KC_SLSH),
+    KC_ECTL = LCTL_T(KC_ESC),
 
     // layers
     KC_LOWER,
@@ -25,67 +26,67 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * BASE
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |  `   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  Del |
+ * |  `   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | Del  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |      |
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  \   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | ESC  |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|  MUTE |    |  PLAY |------+------+------+------+------+------|
- * |Shift |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |Shift |
+ * |Shift |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |Enter |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LCTR | LGUI | LOWER| Space| / Bspc  /       \  Tab \  |Enter | RAISE|      |      |
+ *            | LCTR | LGUI | LOWER| Space| /  Alt  /       \ Tab  \  | Bspc | RAISE|      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
 
 [_BASE] = LAYOUT(
   KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                        KC_6   , KC_7   , KC_8   , KC_9   , KC_0   ,  KC_DEL ,
-  KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                        KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,  XXXXXXX,
-  KC_ESC , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                        KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN,  KC_QUOT,
-  KC_LSPO, KC_NAV , KC_X   , KC_C   , KC_V   , KC_B   , KC_MUTE,      KC_MPLY, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SYMB,  KC_RSPC,
-                   KC_LCTRL, KC_LGUI,KC_LOWER, KC_SPC , KC_BSPC,      KC_TAB ,KC_ENTER,KC_RAISE, XXXXXXX, XXXXXXX
+  KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                        KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,  KC_BSLS,
+  KC_ECTL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                        KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN,  KC_QUOT,
+  KC_LSPO, KC_NAV , KC_X   , KC_C   , KC_V   , KC_B   , KC_MUTE,      KC_MPLY, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SYMB,  KC_ENTER,
+                   KC_LCTRL, KC_LGUI,KC_LOWER, KC_SPC , KC_LALT,     KC_TAB, KC_BSPC,KC_RAISE, XXXXXXX, XXXXXXX
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | F11  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |      |      |      |      |      |                    |      |  7   |  8   |  9   |      |      |
+ * | Tab  |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | ESC  |      |      |      |      |      |-------.    ,-------|      |  4   |  5   |  6   |      |      |
+ * | ESC  |      |      |      |      |      |-------.    ,-------|      |   _  |   +  |      |      |      |
  * |------+------+------+------+------+------|  MUTE |    |  PLAY |------+------+------+------+------+------|
- * |Shift |      |      |      |      |      |-------|    |-------|      |  1   |  2   |  3   |      | Shift|
+ * |Shift |      |      |      |      |      |-------|    |-------|      |      |      |      |      |Enter |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LCTR | LGUI | LOWER| Space| / Bspc  /       \  Tab \  |Enter | RAISE|  0   |  .   |
+ *            | LCTR | LGUI | LOWER| Space| /  Alt  /       \ Tab  \  | Bspc | RAISE|      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
 [_LOWER] = LAYOUT(
   KC_F11 , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                              KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F12 ,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                              XXXXXXX, KC_P7  , KC_P8  , KC_P9  , XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                              XXXXXXX, KC_P4  , KC_P5  , KC_P6  , XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,            _______, XXXXXXX, KC_P1  , KC_P2  , KC_P3  , XXXXXXX, _______,
-                    _______, _______, _______, _______, _______,            _______, _______, _______, KC_P0  , KC_PDOT
+  _______, _______, _______, _______, _______, _______,                              _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                              _______, KC_UNDS, KC_PLUS, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______, _______, _______, _______, _______,
+                    _______, _______, _______, _______, _______,            _______, _______, _______, _______, _______
 ),
 /* RAISE
  * ,----------------------------------------.                     ,-----------------------------------------.
  * | F11  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |      |      |      |      |      |                    |      |  7   |  8   |  9   |      |      |
+ * | Tab  |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | ESC  |      |      |      |      |      |-------.    ,-------|      |  4   |  5   |  6   |      |      |
+ * | ESC  |      |      |      |      |      |-------.    ,-------|      |   -  |   =  |      |      |      |
  * |------+------+------+------+------+------|  MUTE |    |  PLAY |------+------+------+------+------+------|
- * |Shift |      |      |      |      |      |-------|    |-------|      |  1   |  2   |  3   |      | Shift|
+ * |Shift |      |      |      |      |      |-------|    |-------|      |      |      |      |      |Enter |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LCTR | LGUI | LOWER| Space| / Bspc  /       \  Tab \  |Enter | RAISE|  0   |  .   |
+ *            | LCTR | LGUI | LOWER| Space| /  Alt  /       \ Tab  \  | Bspc | RAISE|      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
 [_RAISE] = LAYOUT(
   KC_F11 , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                         KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F12 ,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-                    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+  _______, _______, _______, _______, _______, _______,                              _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,                              _______, KC_MINS, KC_EQL , _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______, _______, _______, _______, _______,
+                    _______, _______, _______, _______, _______,            _______, _______, _______, _______, _______
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -97,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  MUTE |    |  PLAY |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LCTR | LGUI | LOWER| Space| / Bspc  /       \  Tab \  |Enter | RAISE|      |      |
+ *            |      |      |      |      | /       /       \      \  |      |      |      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -106,48 +107,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 /* NAVIGATION
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |                    |      |      |      |      |      | Del  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                    |      |  ^   |  $   |      |      |      |
+ * | Tab  |      |      |      |      |      |                    |      |  ^   |  $   |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      | Home | End  |-------.    ,-------| Left | Down |  Up  |Right |      |      |
+ * | ESC  |      |      |      | Home | End  |-------.    ,-------| Left | Down |  Up  |Right |      |      |
  * |------+------+------+------+------+------|  MUTE |    |  PLAY |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+ * |Shift |      |      |      |      |      |-------|    |-------|      |      |      |      |      |Enter |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LCTR | LGUI | LOWER| Space| / Bspc  /       \  Tab \  |Enter | RAISE|      |      |
+ *            | LCTR | LGUI | LOWER| Space| /  Alt  /       \ Tab  \  | Bspc | RAISE|      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
   [_NAV] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, KC_CIRC, KC_DLR , XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_END ,                       KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, KC_CIRC, KC_DLR , XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_END ,                       KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                     _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
   ),
 /* SYMBOLS
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |                    |      |      |      |      |      | Del  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * | Tab  |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |  [   |  ]   |      |-------.    ,-------|      |  {   |  }   |      |      |      |
+ * | ESC  |      |      |  [   |  ]   |      |-------.    ,-------|      |  {   |  }   |      |      |      |
  * |------+------+------+------+------+------|  MUTE |    |  PLAY |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+ * |Shift |      |      |      |      |      |-------|    |-------|      |      |      |      |      |Enter |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LCTR | LGUI | LOWER| Space| / Bspc  /       \  Tab \  |Enter | RAISE|      |      |
+ *            | LCTR | LGUI | LOWER| Space| /  Alt  /       \ Tab  \  | Bspc | RAISE|      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
   [_SYMBOLS] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX,                         XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX,                         XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                     _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
   )
 };
