@@ -1,5 +1,4 @@
 /* Copyright 2020 imchipwood
- * Copyright 2021 Josh Johnson
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_7,      KC_8,    KC_9,             KC_BSPC,
                     KC_4,      KC_5,    KC_6,             KC_ESC,
                     KC_1,      KC_2,    KC_3,             KC_TAB,
-        KC_MPLY,    TT(1),     KC_0,    LSFT_T(KC_DOT),   KC_ENTER
+        KC_MUTE,    TT(1),     KC_0,    LSFT_T(KC_DOT),   KC_ENTER
     ),
     /*
             SUB LAYER
@@ -72,24 +71,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+#ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     // Right encoder
     if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_MNXT);
-        } else {
-            tap_code(KC_MPRV);
-        }
-    // Left encoder
-    } else if (index == 1) {
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {
             tap_code(KC_VOLD);
         }
+    // Left encoder
+    } else if (index == 1) {
+        if (clockwise) {
+            tap_code(KC_MNXT);
+        } else {
+            tap_code(KC_MPRV);
+        }
     }
     return true;
 }
+#endif
 
 #ifdef OLED_ENABLE
 // WPM-responsive animation stuff here
@@ -204,3 +205,4 @@ bool oled_task_user(void) {
     return false;
 }
 #endif
+
