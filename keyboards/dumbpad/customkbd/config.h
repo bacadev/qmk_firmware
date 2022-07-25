@@ -29,8 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 /* Dual rotary encoders */
-#define ENCODERS_PAD_A { B4, E6 }
-#define ENCODERS_PAD_B { B5, D7 }
+#define ENCODERS_PAD_A { B2, D0 }
+#define ENCODERS_PAD_B { D4, D1 }
 
 /* Column/Row IO definitions */
 #define DIODE_DIRECTION COL2ROW
