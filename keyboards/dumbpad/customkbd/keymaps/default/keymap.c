@@ -28,33 +28,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |             |---------|---------|---------|---------|
     |             |    1    |    2    |    3    |   Tab   |
     |-------------|---------|---------|---------|---------|
-    | Play Pause  |  TT(1)  |    0    |    .    |  Enter  |
+    | Play Pause  |  MO(1)  |    0    |    .    |  Enter  |
     \-----------------------------------------------------'
     */
-    [0] = LAYOUT(
-                    KC_7,      KC_8,    KC_9,             KC_BSPC,
-                    KC_4,      KC_5,    KC_6,             KC_ESC,
-                    KC_1,      KC_2,    KC_3,             KC_TAB,
-        KC_MUTE,    TT(1),     KC_0,    LSFT_T(KC_DOT),   KC_ENTER
-    ),
+    [0] = LAYOUT(KC_7, KC_8, KC_9, KC_BSPC, KC_4, KC_5, KC_6, KC_ESC, KC_1, KC_2, KC_3, KC_TAB, KC_MPLY, MO(1), KC_0, KC_PDOT, LT(1,KC_ENT)),
     /*
             SUB LAYER
     /-----------------------------------------------------`
-    |             |         |         |         |  Reset  |
+    |             |         |  ARW UP |         |    *    |
     |             |---------|---------|---------|---------|
-    |             |         |         |         |    +    |
+    |             |  ARW L  | ARW DWN |  ARW R  |    /    |
     |             |---------|---------|---------|---------|
-    |             |         |         |         |    -    |
+    |             |         |         |         |    +=   |
     |-------------|---------|---------|---------|---------|
-    |    LOCK     |         |         |         |    =    |
+    |    VOL+     |         |         |  SfhtR  |    -_   |
     \-----------------------------------------------------'
     */
-    [1] = LAYOUT(
-                    _______,     _______,     _______,      RESET,
-                    _______,     _______,     _______,      KC_KP_PLUS,
-                    _______,     _______,     _______,      KC_KP_MINUS,
-        KC_LOCK,    _______,     _______,     _______,      KC_EQL
-    ),
+    [1] = LAYOUT(KC_LPRN, KC_UP, KC_RPRN, KC_PAST, KC_LEFT, KC_DOWN, KC_RGHT, KC_PSLS, KC_TRNS, KC_TRNS, KC_TRNS, KC_EQL, KC_VOLU, KC_TRNS, KC_TRNS, KC_RSFT, KC_MINS),
 
     [2] = LAYOUT(
                     _______,     _______,     _______,      _______,
@@ -189,6 +179,7 @@ static void render_anim(void) {
         }
     }
 }
+
 
 // Used to draw on to the oled screen
 bool oled_task_user(void) {
