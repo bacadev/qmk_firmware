@@ -20,6 +20,7 @@ CAPS_WORD_ENABLE = yes
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 CUSTOM_MATRIX = lite
+WPM_ENABLE = yes
 
 # project specific files
 SRC += matrix.c
