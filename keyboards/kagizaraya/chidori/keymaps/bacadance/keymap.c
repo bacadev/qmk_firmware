@@ -24,10 +24,10 @@ char wpm_str[10];
 #define KC_MAC_COPY LGUI(KC_C)
 #define KC_MAC_PASTE LGUI(KC_V)
 
-enum layer_number { _QWERTY = 0, _COLEMAK, _DVORAK, _LOWER, _RAISE, _ADJUST };
+enum layer_number { _QWERTY = 0, _LOWER, _RAISE, _ADJUST };
 
 // Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK };
+enum custom_keycodes { QWERTY = SAFE_RANGE};
 
 #define LOWER  MO(_LOWER)
 #define RAISE  MO(_RAISE)
@@ -39,57 +39,22 @@ enum custom_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK };
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Qwerty
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * | Esc  |   Q  |   W  |   E  |   R  |   T  |             |   Y  |   U  |   I  |   O  |   P  |  *   |
+   * | Tab  |   Q  |   W  |   E  |   R  |   T  |             |   Y  |   U  |   I  |   O  |   P  |  *   |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |Tab   |  A   |   S  |   D  |   F  |   G  |             |   H  |   J  |   K  |   L  |  ;:  |  '"  | ?tap/hold  ;: '" when poss
+   * | Esc  |  A   |   S  |   D  |   F  |   G  |             |   H  |   J  |   K  |   L  |  ;:  |  '"  | ?tap/hold  ;: '" when poss
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |             |   N  |   M  |   ,  |   .  |  /   | Enter| ?tap/hold Ent/Shift when poss
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |CAPSWd| Alt  | Cmd  | Cmd  |LOWER |Space |             | Bkspc| RAISE| Left | Down |  Up  | Right|
+   * |CAPSWd| Alt  | Cmd  |LOWER |LOWER |Space |             | Bkspc| RAISE| Left | Down |  Up  | Right|
    * `-----------------------------------------'             `-----------------------------------------'
    */
     [_QWERTY] = LAYOUT(
-      KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,       KC_Y,    KC_U,  KC_I,    KC_O,    KC_P,     KC_PAST,
-      KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,  KC_G,       KC_H,    KC_J,  KC_K,     KC_L,   KC_SCLN,  KC_QUOTE,
+      KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,       KC_Y,    KC_U,  KC_I,    KC_O,    KC_P,     KC_PAST,
+      KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,  KC_G,       KC_H,    KC_J,  KC_K,     KC_L,   KC_SCLN,  KC_QUOTE,
       KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,       KC_N,    KC_M,  KC_COMM, KC_DOT,  KC_SLSH,  KC_ENTER,
-      KC_CAPS,   KC_LALT, KC_LGUI, KC_LGUI, LOWER, KC_SPC,     KC_BSPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT
+      KC_CAPS,   KC_LALT, KC_LGUI, LOWER, LOWER, KC_SPC,     KC_BSPC, RAISE, KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT
     ),
-  /* Colemak
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * | Tab  |   Q  |   W  |   F  |   P  |   G  |             |   J  |   L  |   U  |   Y  |   ;  | Bksp |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Ctrl |   A  |   R  |   S  |   T  |   D  |             |   H  |   N  |   E  |   I  |   O  |  '   |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Shift|   Z  |   X  |   C  |   V  |   B  |             |   K  |   M  |   ,  |   .  |   /  |Enter |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |ADJUST| Esc  | Alt  | GUI  |LOWER |Space |             | Space| RAISE| Left | Down |  Up  | Right|
-   * `-----------------------------------------'             `-----------------------------------------'
-   */
-    [_COLEMAK] = LAYOUT(
-      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,              KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
-      KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,              KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,              KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-      ADJUST,  KC_ESC,  KC_LALT, KC_LGUI, LOWER,   KC_SPC,            KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
-    ),
-
-  /* Dvorak
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * | Tab  |   '  |   ,  |   .  |   P  |   Y  |             |   F  |   G  |   C  |   R  |   L  | Bksp |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Ctrl |   A  |   O  |   E  |   U  |   I  |             |   D  |   H  |   T  |   N  |   S  |  /   |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Shift|   ;  |   Q  |   J  |   K  |   X  |             |   B  |   M  |   W  |   V  |   Z  |Enter |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |ADJUST| Esc  | Alt  | GUI  |LOWER |Space |             | Space| RAISE| Left | Down |  Up  | Right|
-   * `-----------------------------------------'             `-----------------------------------------'
-   */
-    [_DVORAK] = LAYOUT(
-      KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,              KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC,
-      KC_LCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,              KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH,
-      KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,              KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT,
-      ADJUST,  KC_ESC,  KC_LALT, KC_LGUI, LOWER,   KC_SPC,            KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
-    ),
-
+  
   /* Lower
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |   ~  |   !  |   @  |   #  |   $  |   %  |             |   ^  |   &  |   *  |  (   |   )  |  *   | ? tap/hold ()[] when poss
@@ -111,9 +76,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Raise
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * | Tab  |      |      |      |      |      |             | Play |BrtUp |BrtDwn|      |      |      |
+   * | Tab  |      |      |      |      |      |             | Play |BrtDwn |BrtUp|      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Ctrl |      |      |      |      |      |             | Mute | Vol+ | Vol- |      |      |      |
+   * | Ctrl |      |      |      |      |      |             | Mute | Vol- | Vol+ |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |Shift |      |      |      |      |      |             |      | Prev | Next |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -121,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------'             `-----------------------------------------'
    */
     [_RAISE] = LAYOUT(
-      KC_TAB,  KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,           KC_MPLY, KC_BRIU, KC_BRID, KC_NO, KC_NO, KC_NO,
+      KC_TAB,  KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,           KC_MPLY, KC_BRID, KC_BRIU, KC_NO, KC_NO, KC_NO,
       KC_LCTL, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,           KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO, KC_NO,
       KC_LSFT, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,           KC_NO,   KC_MPRV, KC_MNXT, KC_NO, KC_NO, KC_NO,
       KC_NO,   KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO,           KC_NO,   KC_TRNS, KC_NO,   KC_NO, KC_NO, KC_NO
@@ -129,8 +94,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Adjust (Lower + Raise)
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      |      |      |      |      |      |             |      |Qwerty|Colemk|Dvorak|      |Reset |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |      |      |      |      |      |      |             |      |Qwerty|      |      |      |Reset |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|  maybe add bootloader and clear eeprom 
    * |      |      |      |      |      |      |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      |      |      |      |      |      |             |      |      |      |      |      |      |
@@ -139,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------'             `-----------------------------------------'
    */
     [_ADJUST] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,          _______, QWERTY,  COLEMAK, DVORAK,  _______, RESET,
+      _______, _______, _______, _______, _______, _______,          _______, QWERTY,  _______, _______, _______, RESET,
       _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______
@@ -156,16 +121,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-        case DVORAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_DVORAK);
             }
             return false;
     }
@@ -190,14 +145,14 @@ uint32_t oled_timer = 0;
 /* Animation bit by j-inc https://github.com/qmk/qmk_firmware/tree/master/keyboards/kyria/keymaps/j-inc */
 // WPM-responsive animation stuff here
 #define IDLE_FRAMES 2
-#define IDLE_SPEED 30 // below this wpm value your animation will idle
+#define IDLE_SPEED 20 // below this wpm value your animation will idle
 
 // #define PREP_FRAMES 1 // uncomment if >1
 
 #define TAP_FRAMES 2
-#define TAP_SPEED 30 // above this wpm value typing animation to triggere
+#define TAP_SPEED 20 // above this wpm value typing animation to triggere
 
-#define ANIM_FRAME_DURATION 150 // how long each frame lasts in ms
+#define ANIM_FRAME_DURATION 100 // how long each frame lasts in ms
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
 #define ANIM_SIZE 320 // number of bytes in array, minimize for adequate firmware size, max is 1024
 
@@ -321,17 +276,11 @@ static void render_anim(void) {
     }
 }
 void oled_write_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR(""), false);
     switch (get_highest_layer(layer_state | default_layer_state)) {
         case _QWERTY:
-            oled_write_ln_P(PSTR("Qwerty"), false);
-            break;
-        case _COLEMAK:
-            oled_write_ln_P(PSTR("Colemak"), false);
-            break;
-        case _DVORAK:
-            oled_write_ln_P(PSTR("Dvorak"), false);
-            break;   
+            oled_write_ln_P(PSTR("Qwrty"), false);
+            break; 
         case _LOWER:
             oled_write_ln_P(PSTR("Lower"), false);
             break;
@@ -339,7 +288,7 @@ void oled_write_layer_state(void) {
             oled_write_ln_P(PSTR("Raise"), false);
             break;
         case _ADJUST:
-            oled_write_ln_P(PSTR("Adjust"), false);
+            oled_write_ln_P(PSTR("Adjst"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
@@ -350,10 +299,10 @@ void oled_write_layer_state(void) {
 bool oled_task_user(void) {
     // If you want to change the display of OLED, you need to change here
     oled_write_layer_state();
-    oled_set_cursor(4,1);
+    oled_set_cursor(0,2);
     render_anim();
     oled_set_cursor(0,13);
-    oled_write_P(PSTR("WPM: "), false);
+    oled_write_P(PSTR("WPM:"), false);
     oled_write(get_u8_str(get_current_wpm(), ' '), false);
     return false;
 }

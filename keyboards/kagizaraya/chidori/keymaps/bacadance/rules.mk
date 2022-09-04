@@ -21,6 +21,7 @@ OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 CUSTOM_MATRIX = lite
 WPM_ENABLE = yes
+AUTO_SHIFT_ENABLE = yes
 
 # project specific files
 SRC += matrix.c
