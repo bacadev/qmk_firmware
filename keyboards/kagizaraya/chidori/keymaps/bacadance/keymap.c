@@ -24,6 +24,20 @@ char wpm_str[10];
 #define KC_MAC_COPY LGUI(KC_C)
 #define KC_MAC_PASTE LGUI(KC_V)
 
+// Tap Dance declarations
+enum {
+    TD_LPRN_LBRC,
+    TD_RPRN_RBRC,
+};
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Left Parentheses, twice for Left Bracket
+    [TD_LPRN_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LBRC),
+    [TD_RPRN_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RBRC),
+};
+
+
 enum layer_number { _QWERTY = 0, _LOWER, _RAISE, _ADJUST };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -41,9 +55,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------.             ,-----------------------------------------.
    * | Tab  |   Q  |   W  |   E  |   R  |   T  |             |   Y  |   U  |   I  |   O  |   P  |  *   |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Esc  |  A   |   S  |   D  |   F  |   G  |             |   H  |   J  |   K  |   L  |  ;:  |  '"  | ?tap/hold  ;: '" when poss
+   * | Esc  |  A   |   S  |   D  |   F  |   G  |             |   H  |   J  |   K  |   L  |  ;:  |  '"  | autoshift enabled
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Shift|   Z  |   X  |   C  |   V  |   B  |             |   N  |   M  |   ,  |   .  |  /   | Enter| ?tap/hold Ent/Shift when poss
+   * | Shift|   Z  |   X  |   C  |   V  |   B  |             |   N  |   M  |   ,  |   .  |  /   | Enter| 
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |CAPSWd| Alt  | Cmd  |LOWER |LOWER |Space |             | Bkspc| RAISE| Left | Down |  Up  | Right|
    * `-----------------------------------------'             `-----------------------------------------'
@@ -57,9 +71,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   /* Lower
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |   ~  |   !  |   @  |   #  |   $  |   %  |             |   ^  |   &  |   *  |  (   |   )  |  *   | ? tap/hold ()[] when poss
+   * |   ~  |   !  |   @  |   #  |   $  |   %  |             |   ^  |   &  |   *  |  (   |   )  |  *   | 
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |   `  |      |   _  |   =  |   0  |   -  |             |   +  |   1  |   .  |   [  |   ]  |  |   |
+   * |   `  |      |   _  |   =  |   0  |   -  |             |   +  |   1  |   .  |   {  |   }  |  |   |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * | Shift|  6   |   7  |   8  |   9  |      |             |      |   2  |   3  |   4  |   5  |   \  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -68,10 +82,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
     [_LOWER] = LAYOUT(
 
-      KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN,  KC_RPRN,   KC_PAST, 
-      KC_GRV,  KC_TRNS, KC_UNDS, KC_PEQL, KC_P0,   KC_PMNS,       KC_PPLS, KC_P1,   KC_PDOT, KC_LBRC,  KC_RBRC,   KC_PIPE,
-      KC_LSFT, KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_TRNS,       KC_TRNS, KC_P2,   KC_P3,   KC_P4,    KC_P5,     KC_NUBS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC,        KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS
+      KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,       KC_CIRC, KC_AMPR, KC_ASTR, TD(TD_LPRN_LBRC),  TD(TD_RPRN_RBRC),   KC_PAST, 
+      KC_GRV,  KC_TRNS, KC_UNDS, KC_PEQL, KC_P0,   KC_PMNS,       KC_PPLS, KC_P1,   KC_PDOT, LSFT(KC_LBRC),     LSFT(KC_RBRC),      KC_PIPE,
+      KC_LSFT, KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_TRNS,       KC_TRNS, KC_P2,   KC_P3,   KC_P4,             KC_P5,              KC_NUBS,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC,        KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,            KC_TRNS
     ),
 
   /* Raise

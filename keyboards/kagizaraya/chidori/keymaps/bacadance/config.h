@@ -16,6 +16,7 @@
 
 #pragma once
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define TAPPING_TERM 150
 /*
  * Board config
  */
