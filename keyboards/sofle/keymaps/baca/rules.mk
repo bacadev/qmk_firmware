@@ -1,0 +1,24 @@
+
+LTO_ENABLE			= yes
+CONSOLE_ENABLE		= no
+COMMAND_ENABLE		= no
+GRAVE_ESC_ENABLE	= no
+MAGIC_ENABLE		= no
+SPACE_CADET_ENABLE = no
+OLED_ENABLE			= yes
+OLED_DRIVER			= SSD1306
+ENCODER_ENABLE		= yes
+EXTRAKEY_ENABLE		= yes
+MOUSEKEY_ENABLE		= yes
+WPM_ENABLE			= yes
+VIA_ENABLE			= no
+DEBOUNCE_TYPE		= asym_eager_defer_pk
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+NKRO_ENABLE = no            # Enable N-Key Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+AUDIO_ENABLE = no           # Audio output
+CAPS_WORD_ENABLE = no
+AUTO_SHIFT_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+AVR_USE_MINIMAL_PRINTF = yes
